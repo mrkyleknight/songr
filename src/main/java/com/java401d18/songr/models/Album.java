@@ -1,20 +1,20 @@
 package com.java401d18.songr.models;
 
 
-
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    public Long id;
 
     @Column(nullable = false)
-    private String title;
+    public String title;
 
     @Column(nullable = false)
-    private String artist;
+    public String artist;
 
     @Column(nullable = false)
     private int songCount;
@@ -24,6 +24,9 @@ public class Album {
 
     @Column(nullable = false)
     private String imageUrl;
+
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+     List<Song> songs;
 
     protected Album() {}
 
@@ -83,5 +86,13 @@ public class Album {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<Song> getSongs() {
+        return this.songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
     }
 }
